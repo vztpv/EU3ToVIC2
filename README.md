@@ -2,4 +2,4 @@
 EU3 to VIC2 Using Idhrendur/paradoxGameConverters and My ClauTextAPI?
 # To Do
   1. Loading Savefile -> Using ClauText API(Parallelly Loading Savefile)
-  2. over? date(>1836.1.1) processing. using ClauTextAPI 
+  2. over? date(>1836.1.1) processing. using ClauTextAPI?
