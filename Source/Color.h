@@ -32,8 +32,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*/
 #include <array>
 #include <iostream>
 
-class Object;
-
 // An RGB color triplet.
 class Color
 {

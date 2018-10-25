@@ -128,7 +128,7 @@ bool date::operator>=(const date& _rhs) const noexcept
 }
 
 
-std::ostream& operator<<(std::ostream& out, const date& d) noexcept
+std::ostream& operator<<(std::ostream& out, const date& d) 
 {
 	out << d.year << '.' << d.month << '.' << d.day;
 	return out;
