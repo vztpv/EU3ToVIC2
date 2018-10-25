@@ -6,4 +6,4 @@
   2. over? date(>1836.1.1) processing. using ClauTextAPI? or limit? in date`s constructor?
 # Tools
   1. ClauEdit (https://github.com/ClauText/ClauExplorer) - To Explore savegame file data.
-  
+ ![alt text](clau_explorer.png) 
