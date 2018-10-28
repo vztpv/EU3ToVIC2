@@ -53,7 +53,7 @@ bool CountryMapping::ReadRules(const std::string& fileName)
 	wiz::load_data::UserType countryMappingsFile;
 
 	// the parsed country mappings file
-	if (!wiz::load_data::LoadData::LoadDataFromFile3(fileName, countryMappingsFile, 0, 0))
+	if (!wiz::load_data::LoadData::LoadDataFromFile3(fileName, countryMappingsFile, -1, 0))
 	{
 		LOG(LogLevel::Error) << "Failed to parse " << fileName;
 		return false;

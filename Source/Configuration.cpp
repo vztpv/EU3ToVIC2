@@ -37,7 +37,7 @@ Configuration::Configuration()
 
 	wiz::load_data::UserType tempObj;
 	
-	bool ok = wiz::load_data::LoadData::LoadDataFromFile3("configuration.txt", tempObj, 0, 0); // use maybe total thread in cpu
+	bool ok = wiz::load_data::LoadData::LoadDataFromFile3("configuration.txt", tempObj, -1, 0); // use maybe total thread in cpu
 		// doParseFile("configuration.txt");	// the parsed configuration file
 
 	if (!ok)
