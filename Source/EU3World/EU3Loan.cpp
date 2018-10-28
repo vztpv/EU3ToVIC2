@@ -26,7 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*/
 #include <vector>
 
 
-EU3Loan::EU3Loan(wiz::load_data::UserType* obj)
+EU3Loan::EU3Loan(const wiz::load_data::UserType* obj)
 {
 	std::vector<wiz::load_data::ItemType<wiz::DataType>> moneyObj = obj->GetItem("lender");
 	if (moneyObj.size() > 0)

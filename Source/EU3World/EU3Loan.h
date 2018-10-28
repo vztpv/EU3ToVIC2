@@ -34,7 +34,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*/
 class EU3Loan
 {
 	public:
-		EU3Loan(wiz::load_data::UserType* obj);
+		EU3Loan(const wiz::load_data::UserType* obj);
 		std::string	getLender() const noexcept { return lender; };
 		double	getInterest() const noexcept { return interest; };
 		double	getAmount() const noexcept { return amount; };

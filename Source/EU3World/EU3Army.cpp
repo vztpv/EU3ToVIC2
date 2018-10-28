@@ -247,7 +247,7 @@ void AddUnitFileToRegimentTypeMap(std::string directory, std::string name, Regim
 {
 	wiz::load_data::UserType obj;
 
-	if (!wiz::load_data::LoadData::LoadDataFromFile3((directory + "\\" + name + ".txt"), obj, 0, 0))
+	if (!wiz::load_data::LoadData::LoadDataFromFile3((directory + "\\" + name + ".txt"), obj, -1, 0))
 	{
 		LOG(LogLevel::Error) << "Could not parse file " << directory << '\\' << name << ".txt";
 		exit(-1);
