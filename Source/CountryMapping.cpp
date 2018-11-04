@@ -58,22 +58,22 @@ bool CountryMapping::ReadRules(const std::string& fileName)
 		LOG(LogLevel::Error) << "Failed to parse " << fileName;
 		return false;
 	}
-	vector<wiz::load_data::UserType*> nodes = countryMappingsFile.GetUserTypeItem("mappings");	// the country mapping rules in the file
+	std::vector<wiz::load_data::UserType*> nodes = countryMappingsFile.GetUserTypeItem("mappings");	// the country mapping rules in the file
 	if (nodes.empty())
 	{
 		LOG(LogLevel::Error) << fileName << " does not contain a mapping";
 		return false;
 	}
-	vector<wiz::load_data::UserType*> ruleNodes = nodes[0]->GetUserTypeItem("link"); // getLeaves();
+	std::vector<wiz::load_data::UserType*> ruleNodes = nodes[0]->GetUserTypeItem("link"); // getLeaves();
 
 	// Convert rule nodes into our map data structure.
 	LOG(LogLevel::Debug) << "Building rules map";
-	map<std::string, vector<std::string>> newEU3TagToV2TagsRules;
-	for (vector<wiz::load_data::UserType*>::iterator i = ruleNodes.begin(); i != ruleNodes.end(); ++i)
+	std::map<std::string, std::vector<std::string>> newEU3TagToV2TagsRules;
+	for (std::vector<wiz::load_data::UserType*>::iterator i = ruleNodes.begin(); i != ruleNodes.end(); ++i)
 	{
 		//vector<Object*> rule = (*i)->getLeaves();	// an individual rule
 		std::string newEU3Tag;									// the EU3 tag in the rule
-		vector<std::string>	V2Tags;							// the V2 tags in the rule
+		std::vector<std::string>	V2Tags;							// the V2 tags in the rule
 
 		for (int j=0; j < (*i)->GetItemListSize(); ++j)
 		{
@@ -117,7 +117,7 @@ void CountryMapping::CreateMapping(const EU3World& srcWorld, const V2World& dest
 	}
 
 	// Find a V2 tag from the rules for each EU3 tag.
-	const map<std::string, V2Country*> V2Countries = destWorld.getPotentialCountries();
+	const std::map<std::string, V2Country*> V2Countries = destWorld.getPotentialCountries();
 	for (std::set<std::string>::iterator i = EU3TagsToMap.begin(); i != EU3TagsToMap.end(); ++i)
 	{
 		const std::string& EU3Tag = *i;	// the EU3 tag being considered
@@ -128,7 +128,7 @@ void CountryMapping::CreateMapping(const EU3World& srcWorld, const V2World& dest
 		{
 			const std::vector<std::string>& possibleV2Tags = findIter->second;
 			// We want to use a V2 tag that corresponds to an actual V2 country if possible.
-			for (vector<std::string>::const_iterator j = possibleV2Tags.begin(); j != possibleV2Tags.end() && !mapped; ++j)
+			for (std::vector<std::string>::const_iterator j = possibleV2Tags.begin(); j != possibleV2Tags.end() && !mapped; ++j)
 			{
 				const std::string& V2Tag = *j;
 				if (V2Countries.find(V2Tag) != V2Countries.end() && EU3TagToV2TagMapR.find(V2Tag) == EU3TagToV2TagMapR.end())
@@ -141,7 +141,7 @@ void CountryMapping::CreateMapping(const EU3World& srcWorld, const V2World& dest
 			}
 			if (!mapped)
 			{	// None of the V2 tags in our rule correspond to an actual V2 country, so we just use the first unused V2 tag.
-				for (vector<std::string>::const_iterator j = possibleV2Tags.begin(); j != possibleV2Tags.end() && !mapped; ++j)
+				for (std::vector<std::string>::const_iterator j = possibleV2Tags.begin(); j != possibleV2Tags.end() && !mapped; ++j)
 				{
 					const std::string& V2Tag = *j;
 					if (EU3TagToV2TagMapR.find(V2Tag) == EU3TagToV2TagMapR.end())
@@ -159,8 +159,8 @@ void CountryMapping::CreateMapping(const EU3World& srcWorld, const V2World& dest
 		if (!mapped)
 		{	// Either the EU3 tag had no mapping rule or no V2 tag from its mapping rule could be used. 
 			// We generate a new V2 tag for it.
-			ostringstream generatedV2TagStream;
-			generatedV2TagStream << generatedV2TagPrefix << setfill('0') << setw(2) << generatedV2TagSuffix;
+			std::ostringstream generatedV2TagStream;
+			generatedV2TagStream << generatedV2TagPrefix << std::setfill('0') << std::setw(2) << generatedV2TagSuffix;
 			std::string V2Tag = generatedV2TagStream.str();
 			EU3TagToV2TagMapL.insert(make_pair(EU3Tag, V2Tag));
 			EU3TagToV2TagMapR.insert(make_pair(V2Tag, EU3Tag));
