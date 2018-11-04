@@ -73,12 +73,12 @@ class EU3Regiment // also Ship
 		void					setCategory(const RegimentCategory cat) { category = cat; }
 		void					setTypeStrength(const int typeStrength) { type_strength = typeStrength; }
 
-		std::string				getName() const { return name; }
-		std::string				getType() const { return type; }
-		int						getHome() const { return home; }
-		double					getStrength() const { return strength; }
-		RegimentCategory		getCategory() const { return category; }
-		int						getTypeStrength() const { return type_strength; }
+		std::string				getName() const noexcept { return name; }
+		std::string				getType() const noexcept { return type; }
+		int						getHome() const noexcept { return home; }
+		double					getStrength() const noexcept { return strength; }
+		RegimentCategory		getCategory() const noexcept { return category; }
+		int						getTypeStrength() const noexcept { return type_strength; }
 private:
 		std::string				name;
 		std::string				type;
@@ -99,10 +99,10 @@ class EU3Army // also Navy
 		int							getProbabilisticHomeProvince(RegimentCategory category) const;
 		void						blockHomeProvince(int home);
 
-		std::string					getName() const { return name; }
-		int							getLocation() const { return location; }
-		int							getAtSea() const { return at_sea; }
-		int							getLeaderID() const { return leaderID; }
+		std::string					getName() const noexcept { return name; }
+		int							getLocation() const noexcept { return location; }
+		int							getAtSea() const noexcept { return at_sea; }
+		int							getLeaderID() const noexcept { return leaderID; }
 	private:
 		std::string					name;
 		int							location;

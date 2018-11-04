@@ -406,7 +406,7 @@ void EU3World::checkAllEU3ReligionsMapped(const religionMapping& religionMap) co
 }
 
 
-void EU3World::setLocalisations(EU3Localisation& localisation)
+void EU3World::setLocalisations(const EU3Localisation& localisation)
 {
 	for (std::map<std::string, EU3Country*>::iterator countryItr = countries.begin(); countryItr != countries.end(); ++countryItr)
 	{

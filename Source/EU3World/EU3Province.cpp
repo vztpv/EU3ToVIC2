@@ -403,8 +403,8 @@ void EU3Province::buildPopRatios()
 	// fast-forward to 200 years before the end date (200 year decay means any changes before then will be at 100%)
 	std::string curCulture		= "";
 	std::string curReligion	= "";
-	std::vector< pair<date, std::string> >::iterator cItr = cultureHistory.begin();
-	std::vector< pair<date, std::string> >::iterator rItr = religionHistory.begin();
+	std::vector< std::pair<date, std::string> >::iterator cItr = cultureHistory.begin();
+	std::vector< std::pair<date, std::string> >::iterator rItr = religionHistory.begin();
 	while (cItr != cultureHistory.end() && cItr->first.year < cutoffDate.year)
 	{
 		curCulture = cItr->second;
@@ -562,7 +562,7 @@ void EU3Province::determineProvinceWeight()
 		trade_value_eff			= provBuildingWeightVec.at(10);
 		trade_power_eff			= provBuildingWeightVec.at(11);
 	}
-	catch (exception &e)
+	catch (std::exception &e)
 	{
 		LOG(LogLevel::Error) << "Error in building weight std::vector: " << e.what();
 	}

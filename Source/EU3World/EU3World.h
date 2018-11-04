@@ -56,7 +56,7 @@ class EU3World {
 		void setEU3WorldProvinceMappings(const inverseProvinceMapping& inverseProvinceMap);
 
 		void	readCommonCountries(std::istream&, const std::string& rootPath);
-		void	readCountryLocalisation(std::istream&);
+		void	readCountryLocalisation(std::istream&); // remove?
 
 		EU3Country*						getCountry(std::string tag) const;
 		EU3Province*					getProvince(int provNum) const;
@@ -64,9 +64,10 @@ class EU3World {
 		void								resolveRegimentTypes(const RegimentTypeMap& map);
 		WorldType						getWorldType();
 		void								checkAllProvincesMapped(const inverseProvinceMapping& inverseProvinceMap) const;
-		void								checkAllEU3CulturesMapped(const cultureMapping& cultureMap, const inverseUnionCulturesMap& inverseUnionCultures) const;
+		void								checkAllEU3CulturesMapped(const cultureMapping& cultureMap, 
+														const inverseUnionCulturesMap& inverseUnionCultures) const;
 		void								checkAllEU3ReligionsMapped(const religionMapping& religionMap) const;
-		void								setLocalisations(EU3Localisation& localisation);
+		void								setLocalisations(const EU3Localisation& localisation);
 
 		std::map<std::string, EU3Country*>	getCountries()	const noexcept { return countries; };
 		EU3Diplomacy*					getDiplomacy()	const noexcept { return diplomacy; };
