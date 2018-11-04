@@ -92,11 +92,11 @@ class V2Country
 		void								isANewCountry(void)					noexcept { newCountry = true; }
 		void								scalePrestige(double scale)			noexcept { prestige *= scale; }
 
-		map<int, V2Province*>		getProvinces()													const noexcept { return provinces; }
-		string							getTag()															const noexcept { return tag; };
+		std::map<int, V2Province*>		getProvinces()													const noexcept { return provinces; }
+		std::string							getTag()															const noexcept { return tag; };
 		bool								isCivilized()													const noexcept { return civilized; };
-		string							getPrimaryCulture()											const noexcept { return primaryCulture; };
-		set<string>						getAcceptedCultures()										const noexcept { return acceptedCultures; };
+		std::string							getPrimaryCulture()											const noexcept { return primaryCulture; };
+		std::set<std::string>						getAcceptedCultures()										const noexcept { return acceptedCultures; };
 		const EU3Country*				getSourceCountry()											const noexcept { return srcCountry; };
 		inventionStatus				getInventionState(vanillaInventionType invention)	const { return vanillaInventions[invention]; };
 		inventionStatus				getInventionState(HODInventionType invention)		const { return HODInventions[invention]; };
@@ -104,10 +104,10 @@ class V2Country
 		double							getReactionary()												const noexcept { return upperHouseReactionary; };
 		double							getConservative()												const noexcept { return upperHouseConservative; };
 		double							getLiberal()													const noexcept { return upperHouseLiberal; };
-		string							getGovernment()												const noexcept { return government; };
-		vector< pair<int, int> >	getReactionaryIssues()										const noexcept { return reactionaryIssues; };
-		vector< pair<int, int> >	getConservativeIssues()										const noexcept { return conservativeIssues; };
-		vector< pair<int, int> >	getLiberalIssues()											const noexcept { return liberalIssues; };
+		std::string							getGovernment()												const noexcept { return government; };
+		std::vector< std::pair<int, int> >	getReactionaryIssues()										const noexcept { return reactionaryIssues; };
+		std::vector< std::pair<int, int> >	getConservativeIssues()										const noexcept { return conservativeIssues; };
+		std::vector< std::pair<int, int> >	getLiberalIssues()											const noexcept { return liberalIssues; };
 		double							getLiteracy()													const noexcept { return literacy; };
 		int								getCapital()													const noexcept { return capital; };
 		bool								isNewCountry()													const noexcept { return newCountry; };
