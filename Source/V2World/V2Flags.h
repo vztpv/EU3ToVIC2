@@ -1,4 +1,4 @@
-﻿/*Copyright (c) 2014 The Paradox Game Converters Project
+/*Copyright (c) 2014 The Paradox Game Converters Project
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -19,45 +19,32 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*/
 
-// 2018.10.24 SOUTH KOREA (vztpv@naver.com)
 
-#ifndef DATE_H_
-#define DATE_H_
+#ifndef V2FLAGS_H
+#define V2FLAGS_H
 
-
-
-#include <iostream>
+#include <map>
+#include <set>
 #include <string>
+#include <vector>
 
+class V2Country;
 
-
-#include "wiz/load_data_types.h"
-
-
-
-struct date
+// Holds information about all the flags for V2 countries and copies over
+// the appropriate flags with Output().
+class V2Flags 
 {
-	date() : year(1), month(1), day(1) {};
-	date(const std::string& _init, bool check = true);
-	date(const date& _init);
-	date(const wiz::load_data::UserType* _init);
+public:
+	// Tries to find appropriate flags for all the countries specified.
+	void SetV2Tags(const std::map<std::string, V2Country*>& V2Countries);
+	// Copies all necessary flags to the output folder. Returns true if successful.
+	bool Output() const;
 
-	date& operator=(const date& _rhs);
-	bool operator==(const date& _rhs) const noexcept;
-	bool operator!=(const date& _rhs) const noexcept;
-	bool operator<(const date& _rhs) const noexcept;
-	bool operator>(const date& _rhs) const noexcept;
-	bool operator<=(const date& _rhs) const noexcept;
-	bool operator>=(const date& _rhs) const noexcept;
+private:
+	static const std::vector<std::string> flagFileSuffixes;
 
-	friend std::ostream& operator<<(std::ostream&, const date&);
-
-	bool isSet() const noexcept;
-	std::string toString() const;
-
-	int year;
-	int month;
-	int day;
+	typedef std::map<std::string, std::string> V2TagToFlagTagMap;
+	V2TagToFlagTagMap tagMapping;
 };
 
-#endif // _DATE_H
+#endif

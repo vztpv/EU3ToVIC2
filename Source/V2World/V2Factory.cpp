@@ -141,7 +141,7 @@ V2FactoryFactory::V2FactoryFactory()
 	for (long long x = 0; x < obj.GetUserTypeListSize(); ++x) // factoryObjs
 	{
 		V2FactoryType* ft = new V2FactoryType(obj.GetUserTypeList(x));
-		map<string,string>::iterator reqitr = factoryTechReqs.find(ft->name);
+		std::map<std::string, std::string>::iterator reqitr = factoryTechReqs.find(ft->name);
 		if (reqitr != factoryTechReqs.end())
 		{
 			ft->requireTech = reqitr->second;
@@ -190,7 +190,7 @@ V2FactoryFactory::V2FactoryFactory()
 	for (long long x = 0; x < top[0]->GetItemListSize(); ++x) // factories
 	{
 		auto& itr = top[0]->GetItemList(x);
-		string factoryType = itr.GetName().ToString();
+		std::string factoryType = itr.GetName().ToString();
 		int count = itr.Get(0).ToInt();
 
 		std::map<std::string, V2FactoryType*>::iterator t = factoryTypes.find(factoryType);
@@ -219,7 +219,7 @@ std::deque<V2Factory*> V2FactoryFactory::buildFactories() const
 }
 
 
-void V2FactoryFactory::loadRequiredTechs(const string& filename)
+void V2FactoryFactory::loadRequiredTechs(const std::string& filename)
 {
 	wiz::load_data::UserType obj;
 	if (!wiz::load_data::LoadData::LoadDataFromFile3(filename.c_str(), obj, -1, 0))
@@ -241,7 +241,7 @@ void V2FactoryFactory::loadRequiredTechs(const string& filename)
 }
 
 
-void V2FactoryFactory::loadRequiredInventions(const string& filename)
+void V2FactoryFactory::loadRequiredInventions(const std::string& filename)
 {
 	wiz::load_data::UserType obj;
 

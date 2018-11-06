@@ -1,4 +1,4 @@
-﻿/*Copyright (c) 2014 The Paradox Game Converters Project
+/*Copyright (c) 2014 The Paradox Game Converters Project
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -19,45 +19,31 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*/
 
-// 2018.10.24 SOUTH KOREA (vztpv@naver.com)
 
-#ifndef DATE_H_
-#define DATE_H_
+#ifndef WINUTILS_H_
+#define WINUTILS_H_
 
-
-
-#include <iostream>
+#include <set>
 #include <string>
 
+namespace WinUtils {
 
+// Creates a new folder corresponding to the given path.
+// Returns true on success or if the folder already exists.
+// Returns false and logs a warning on failure.
+bool TryCreateFolder(const std::string& path);
+// Adds all files (just the file name) in the specified folder to the given collection.
+void GetAllFilesInFolder(const std::string& path, std::set<std::string>& fileNames);
+// Copies the file specified by sourcePath as destPath.
+// Returns true on success.
+// Returns false and logs a warning on failure.
+bool TryCopyFile(const std::string& sourcePath, const std::string& destPath);
+// Returns true if the specified file exists (and is a file rather than a folder).
+bool DoesFileExist(const std::string& path);
 
-#include "wiz/load_data_types.h"
+// Returns a formatted string describing the last error on the WinAPI.
+std::string GetLastWindowsError();
 
+} // namespace WinUtils
 
-
-struct date
-{
-	date() : year(1), month(1), day(1) {};
-	date(const std::string& _init, bool check = true);
-	date(const date& _init);
-	date(const wiz::load_data::UserType* _init);
-
-	date& operator=(const date& _rhs);
-	bool operator==(const date& _rhs) const noexcept;
-	bool operator!=(const date& _rhs) const noexcept;
-	bool operator<(const date& _rhs) const noexcept;
-	bool operator>(const date& _rhs) const noexcept;
-	bool operator<=(const date& _rhs) const noexcept;
-	bool operator>=(const date& _rhs) const noexcept;
-
-	friend std::ostream& operator<<(std::ostream&, const date&);
-
-	bool isSet() const noexcept;
-	std::string toString() const;
-
-	int year;
-	int month;
-	int day;
-};
-
-#endif // _DATE_H
+#endif // WINUTILS_H_

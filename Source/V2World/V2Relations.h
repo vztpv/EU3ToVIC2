@@ -1,4 +1,4 @@
-﻿/*Copyright (c) 2014 The Paradox Game Converters Project
+/*Copyright (c) 2014 The Paradox Game Converters Project
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -19,45 +19,40 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*/
 
-// 2018.10.24 SOUTH KOREA (vztpv@naver.com)
+// 2018.11.06
 
-#ifndef DATE_H_
-#define DATE_H_
-
-
-
-#include <iostream>
-#include <string>
+#ifndef V2RELATIONS_H_
+#define V2RELATIONS_H_
 
 
 
-#include "wiz/load_data_types.h"
+#include "../Date.h"
+
+class EU3Relations;
 
 
 
-struct date
+class V2Relations
 {
-	date() : year(1), month(1), day(1) {};
-	date(const std::string& _init, bool check = true);
-	date(const date& _init);
-	date(const wiz::load_data::UserType* _init);
+	public:
+		V2Relations(const std::string& newTag);
+		V2Relations(const std::string& newTag, EU3Relations* oldRelations);
+		void output(FILE* out) const;
 
-	date& operator=(const date& _rhs);
-	bool operator==(const date& _rhs) const noexcept;
-	bool operator!=(const date& _rhs) const noexcept;
-	bool operator<(const date& _rhs) const noexcept;
-	bool operator>(const date& _rhs) const noexcept;
-	bool operator<=(const date& _rhs) const noexcept;
-	bool operator>=(const date& _rhs) const noexcept;
+		void		setLevel(int level);
 
-	friend std::ostream& operator<<(std::ostream&, const date&);
-
-	bool isSet() const noexcept;
-	std::string toString() const;
-
-	int year;
-	int month;
-	int day;
+		std::string	getTag()			const noexcept { return tag; };
+		int		getRelations()	const noexcept { return value; };
+		int		getLevel()		const noexcept { return level; };
+	private:
+		std::string	tag;
+		int		value;
+		bool		militaryAccess;
+		date		lastSendDiplomat;
+		date		lastWar;
+		int		level;
 };
 
-#endif // _DATE_H
+
+
+#endif

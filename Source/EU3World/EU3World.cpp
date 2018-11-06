@@ -77,6 +77,7 @@ EU3World::EU3World(const wiz::load_data::UserType* obj)
 			else
 			{
 				EU3Country* country = new EU3Country(obj->GetUserTypeList(i));
+				
 				countries.insert(std::make_pair(country->getTag(), country));
 			}
 		}
@@ -164,7 +165,7 @@ EU3World::EU3World(const wiz::load_data::UserType* obj)
 			
 		}
 		else {
-			world_tag_weights.insert(std::pair<std::string, std::vector<double> >(i->second->getOwnerString(), map_values));
+			world_tag_weights.insert(std::pair<std::string, std::vector<double> >(i->second->getOwnerString(), std::move(map_values)));
 		}
 	}
 

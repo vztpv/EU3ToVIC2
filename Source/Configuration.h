@@ -32,10 +32,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*/
 
 class Configuration // Singleton
 {
-	public:
+	private:
 		Configuration();
+	public:
+	
 
-		static date		getFirstEU3Date()							{ return getInstance()->firstEU3Date; }
+		static date		getFirstEU3Date()					noexcept		{ return getInstance()->firstEU3Date; }
 		static void		setFirstEU3Date(date _firstDate)		{ getInstance()->firstEU3Date = _firstDate; }
 		static date		getLastEU3Date()							{ return getInstance()->lastEU3Date; }
 		static void		setLastEU3Date(date _lastDate)		{ getInstance()->lastEU3Date = _lastDate;	}

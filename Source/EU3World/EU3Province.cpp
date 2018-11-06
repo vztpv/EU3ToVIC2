@@ -91,6 +91,7 @@ EU3Province::EU3Province(const wiz::load_data::UserType* obj)
 		}
 	}
 
+
 	centerOfTrade = false;
 
 	ownershipHistory.clear();
@@ -103,23 +104,23 @@ EU3Province::EU3Province(const wiz::load_data::UserType* obj)
 	{
 		std::string lastOwner;
 		std::string thisCountry;
-		
+
 		for (int i = 0; i < historyObj[0]->GetItemListSize(); ++i) {
-			if (historyObj[i]->GetItemList(i).GetName().ToString() == "owner")
+			if (historyObj[0]->GetItemList(i).GetName().ToString() == "owner")
 			{
-				thisCountry = historyObj[i]->GetItemList(i).Get(0).ToString();
+				thisCountry = historyObj[0]->GetItemList(i).Get(0).ToString();
 				lastOwner = thisCountry;
-				ownershipHistory.push_back(make_pair(date(), thisCountry));
+				ownershipHistory.push_back(std::make_pair(date(), thisCountry));
 				continue;
 			}
-			else if (historyObj[i]->GetItemList(i).GetName().ToString() == "culture")
+			else if (historyObj[0]->GetItemList(i).GetName().ToString() == "culture")
 			{
-				cultureHistory.push_back(make_pair(date(), historyObj[i]->GetItemList(i).Get(0).ToString()));
+				cultureHistory.push_back(std::make_pair(date(), historyObj[0]->GetItemList(i).Get(0).ToString()));
 				continue;
 			}
-			else if (historyObj[i]->GetItemList(i).GetName().ToString() == "religion")
+			else if (historyObj[0]->GetItemList(i).GetName().ToString() == "religion")
 			{
-				religionHistory.push_back(make_pair(date(), historyObj[i]->GetItemList(i).Get(0).ToString()));
+				religionHistory.push_back(std::make_pair(date(), historyObj[0]->GetItemList(i).Get(0).ToString()));
 				continue;
 			}
 		}
@@ -137,22 +138,22 @@ EU3Province::EU3Province(const wiz::load_data::UserType* obj)
 				if (itr != lastPossessedDate.end())
 					itr->second = newDate;
 				else
-					lastPossessedDate.insert(make_pair(lastOwner, newDate));
+					lastPossessedDate.insert(std::make_pair(lastOwner, newDate));
 				lastOwner = thisCountry;
 
-				ownershipHistory.push_back(make_pair(newDate, thisCountry));
+				ownershipHistory.push_back(std::make_pair(newDate, thisCountry));
 			}
 			std::vector<wiz::load_data::ItemType<wiz::DataType>> culObj = historyObjs->GetItem("culture");
 			if (culObj.size() > 0)
 			{
 				date newDate(historyObjs->GetName().ToString());
-				cultureHistory.push_back(make_pair(newDate, culObj[0].Get(0).ToString()));
+				cultureHistory.push_back(std::make_pair(newDate, culObj[0].Get(0).ToString()));
 			}
 			std::vector<wiz::load_data::ItemType<wiz::DataType>> religObj = historyObjs->GetItem("religion");
 			if (religObj.size() > 0)
 			{
 				date newDate(historyObjs->GetName().ToString());
-				religionHistory.push_back(make_pair(newDate, religObj[0].Get(0).ToString()));
+				religionHistory.push_back(std::make_pair(newDate, religObj[0].Get(0).ToString()));
 			}
 		}
 	}
@@ -171,7 +172,7 @@ EU3Province::EU3Province(const wiz::load_data::UserType* obj)
 		if (culObj.size() > 0)
 		{
 			date newDate;
-			cultureHistory.push_back(make_pair(newDate, culObj[0].Get(0).ToString()));
+			cultureHistory.push_back(std::make_pair(newDate, culObj[0].Get(0).ToString()));
 		}
 	}
 	if (religionHistory.size() == 0)
@@ -180,7 +181,7 @@ EU3Province::EU3Province(const wiz::load_data::UserType* obj)
 		if (religObj.size() > 0)
 		{
 			date newDate;
-			religionHistory.push_back(make_pair(newDate, religObj[0].Get(0).ToString()));
+			religionHistory.push_back(std::make_pair(newDate, religObj[0].Get(0).ToString()));
 		}
 	}
 
@@ -436,7 +437,7 @@ void EU3Province::buildPopRatios()
 	{
 		if (cItr == cultureHistory.end())
 		{
-			cDate = date("2000.1.1");
+			cDate = date("2000.1.1", false);
 		}
 		else
 		{
@@ -444,7 +445,7 @@ void EU3Province::buildPopRatios()
 		}
 		if (rItr == religionHistory.end())
 		{
-			rDate = date("2000.1.1");
+			rDate = date("2000.1.1", false);
 		}
 		else
 		{

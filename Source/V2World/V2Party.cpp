@@ -51,7 +51,7 @@ V2Party::V2Party(const std::string& name, const std::string& ideology)
 	if (ideology == "conservative")
 	{
 		start_date = date("1820.1.1");
-		end_date = date("2000.1.1");
+		end_date = date("2000.1.1", false);
 		economic_policy = "interventionism";
 		trade_policy = "protectionism";
 		religious_policy = "moralism";
@@ -61,7 +61,7 @@ V2Party::V2Party(const std::string& name, const std::string& ideology)
 	else if (ideology == "liberal")
 	{
 		start_date = date("1820.1.1");
-		end_date = date("2000.1.1");
+		end_date = date("2000.1.1", false);
 		economic_policy = "laissez_faire";
 		trade_policy = "free_trade";
 		religious_policy = "pluralism";
@@ -71,7 +71,7 @@ V2Party::V2Party(const std::string& name, const std::string& ideology)
 	else if (ideology == "reactionary")
 	{
 		start_date = date("1820.1.1");
-		end_date = date("2000.1.1");
+		end_date = date("2000.1.1", false);
 		economic_policy = "state_capitalism";
 		trade_policy = "protectionism";
 		religious_policy = "moralism";
@@ -80,8 +80,8 @@ V2Party::V2Party(const std::string& name, const std::string& ideology)
 	}
 	else if (ideology == "socialist")
 	{
-		start_date = date("1849.1.1");
-		end_date = date("2000.1.1");
+		start_date = date("1849.1.1", false);
+		end_date = date("2000.1.1", false);
 		economic_policy = "state_capitalism";
 		trade_policy = "free_trade";
 		religious_policy = "secularized";
@@ -90,8 +90,8 @@ V2Party::V2Party(const std::string& name, const std::string& ideology)
 	}
 	else if (ideology == "communist")
 	{
-		start_date = date("1849.1.1");
-		end_date = date("2000.1.1");
+		start_date = date("1849.1.1", false);
+		end_date = date("2000.1.1", false);
 		economic_policy = "planned_economy";
 		trade_policy = "protectionism";
 		religious_policy = "pro_atheism";
@@ -101,7 +101,7 @@ V2Party::V2Party(const std::string& name, const std::string& ideology)
 	else if (ideology == "anarcho_liberal")
 	{
 		start_date = date("1830.1.1");
-		end_date = date("2000.1.1");
+		end_date = date("2000.1.1", false);
 		economic_policy = "laissez_faire";
 		trade_policy = "free_trade";
 		religious_policy = "pro_atheism";
@@ -110,8 +110,8 @@ V2Party::V2Party(const std::string& name, const std::string& ideology)
 	}
 	else if (ideology == "fascist")
 	{
-		start_date = date("1905.1.1");
-		end_date = date("2000.1.1");
+		start_date = date("1905.1.1", false);
+		end_date = date("2000.1.1", false);
 		economic_policy = "state_capitalism";
 		trade_policy = "protectionism";
 		religious_policy = "moralism";

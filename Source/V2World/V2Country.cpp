@@ -168,7 +168,7 @@ void V2Country::output() const
 		{
 			fprintf(output, "primary_culture = %s\n", primaryCulture.c_str());
 		}
-		for (std::set<string>::iterator i = acceptedCultures.begin(); i != acceptedCultures.end(); i++)
+		for (std::set<std::string>::iterator i = acceptedCultures.begin(); i != acceptedCultures.end(); i++)
 		{
 			fprintf(output, "culture = %s\n", i->c_str());
 		}
@@ -294,7 +294,7 @@ void V2Country::outputTech(FILE* output) const
 {
 	fprintf(output, "\n");
 	fprintf(output, "# Technologies\n");
-	for (vector<string>::const_iterator itr = techs.begin(); itr != techs.end(); ++itr)
+	for (std::vector<std::string>::const_iterator itr = techs.begin(); itr != techs.end(); ++itr)
 	{
 		fprintf(output, itr->c_str()); fprintf(output, " = 1\n");
 	}
@@ -330,21 +330,21 @@ void V2Country::outputOOB() const
 
 	fprintf(output, "#Sphere of Influence\n");
 	fprintf(output, "\n");
-	for (map<string, V2Relations*>::const_iterator relationsItr = relations.begin(); relationsItr != relations.end(); relationsItr++)
+	for (std::map<std::string, V2Relations*>::const_iterator relationsItr = relations.begin(); relationsItr != relations.end(); ++relationsItr)
 	{
 		relationsItr->second->output(output);
 	}
 
 	fprintf(output, "\n");
 	fprintf(output, "#Leaders\n");
-	for (vector<V2Leader*>::const_iterator itr = leaders.begin(); itr != leaders.end(); ++itr)
+	for (std::vector<V2Leader*>::const_iterator itr = leaders.begin(); itr != leaders.end(); ++itr)
 	{
 		(*itr)->output(output);
 	}
 
 	fprintf(output, "\n");
 	fprintf(output, "#Armies\n");
-	for (vector<V2Army*>::const_iterator itr = armies.begin(); itr != armies.end(); ++itr)
+	for (std::vector<V2Army*>::const_iterator itr = armies.begin(); itr != armies.end(); ++itr)
 	{
 		(*itr)->output(output);
 	}
@@ -353,7 +353,7 @@ void V2Country::outputOOB() const
 }
 
 
-void V2Country::initFromEU3Country(const EU3Country* _srcCountry, const std::vector<string>& outputOrder,
+void V2Country::initFromEU3Country(const EU3Country* _srcCountry, const std::vector<std::string>& outputOrder,
 	const CountryMapping& countryMap, const cultureMapping& cultureMap, const religionMapping& religionMap, 
 	const unionCulturesMap& unionCultures, const governmentMapping& governmentMap, const inverseProvinceMapping& inverseProvinceMap,
 	const std::vector<V2TechSchool>& techSchools, const std::map<int, int>& leaderMap, const V2LeaderTraits& lt, const EU3RegionsMapping& regionsMap)
@@ -412,7 +412,7 @@ void V2Country::initFromEU3Country(const EU3Country* _srcCountry, const std::vec
 	}
 
 	// religion
-	string srcReligion = srcCountry->getReligion();
+	std::string srcReligion = srcCountry->getReligion();
 	if (srcReligion.size() > 0)
 	{
 		religionMapping::const_iterator i = religionMap.find(srcReligion);
@@ -427,7 +427,7 @@ void V2Country::initFromEU3Country(const EU3Country* _srcCountry, const std::vec
 	}
 
 	// primary culture
-	string srcCulture = srcCountry->getPrimaryCulture();
+	std::string srcCulture = srcCountry->getPrimaryCulture();
 	if (srcCulture.size() > 0)
 	{
 		bool matched = false;
@@ -727,7 +727,7 @@ void V2Country::initFromEU3Country(const EU3Country* _srcCountry, const std::vec
 		universityBonus1 = 0;
 	}
 	double universityBonus2	= numUniversities * 0.01;
-	double universityBonus	= max(universityBonus1, universityBonus2);
+	double universityBonus	= std::max(universityBonus1, universityBonus2);
 	if (universityBonus > 0.2)
 	{
 		universityBonus = 0.2;
@@ -902,7 +902,7 @@ void V2Country::addProvince(V2Province* _province)
 	{
 		LOG(LogLevel::Error) << "Inserting province " << _province->getNum() << " multiple times (addProvince())";
 	}
-	provinces.insert(make_pair(_province->getNum(), _province));
+	provinces.insert(std::make_pair(_province->getNum(), _province));
 }
 
 
@@ -919,7 +919,7 @@ void V2Country::addState(V2State* newState)
 		auto itr = provinces.find(newProvinces[i]->getNum());
 		if (itr == provinces.end())
 		{
-			provinces.insert(make_pair(newProvinces[i]->getNum(), newProvinces[i]));
+			provinces.insert(std::make_pair(newProvinces[i]->getNum(), newProvinces[i]));
 		}
 
 		// find the province with the highest naval base level
@@ -1223,7 +1223,7 @@ void V2Country::addRelation(V2Relations* newRelation)
 }
 
 
-static bool FactoryCandidateSortPredicate(const pair<double, V2State*>& lhs, const pair<double, V2State*>& rhs)
+static bool FactoryCandidateSortPredicate(const std::pair<double, V2State*>& lhs, const std::pair<double, V2State*>& rhs)
 {
 	if (lhs.first != rhs.first)
 	{
@@ -1418,24 +1418,24 @@ void V2Country::setupPops(EU3World& sourceWorld, double popWeightRatio)
 	}
 
 	// output statistics on pops
-	map<string, long int> popsData;
-	for (auto provItr = provinces.begin(); provItr != provinces.end(); provItr++)
+	std::map<std::string, long int> popsData;
+	for (auto provItr = provinces.begin(); provItr != provinces.end(); ++provItr)
 	{
 		auto pops = provItr->second->getPops();
-		for (auto popsItr = pops.begin(); popsItr != pops.end(); popsItr++)
+		for (auto popsItr = pops.begin(); popsItr != pops.end(); ++popsItr)
 		{
 			auto popItr = popsData.find( (*popsItr)->getType() );
 			if (popItr == popsData.end())
 			{
 				long int newPopSize = 0;
-				pair<map<string, long int>::iterator, bool> newIterator = popsData.insert(make_pair((*popsItr)->getType(), 0));
+				std::pair<std::map<std::string, long int>::iterator, bool> newIterator = popsData.insert(std::make_pair((*popsItr)->getType(), 0));
 				popItr = newIterator.first;
 			}
 			popItr->second += (*popsItr)->getSize();
 		}
 	}
 	long int totalPops = 0;
-	for (auto dataItr = popsData.begin(); dataItr != popsData.end(); dataItr++)
+	for (auto dataItr = popsData.begin(); dataItr != popsData.end(); ++dataItr)
 	{
 		totalPops += dataItr->second;
 	}
@@ -1861,7 +1861,7 @@ int V2Country::addRegimentToArmy(V2Army* army, RegimentCategory rc, const invers
 		LOG(LogLevel::Debug) << "Army/navy " << army->getName() << " has no valid home provinces for " << RegimentCategoryNames[rc] << " due to previous errors; dissolving to pool";
 		return -2;
 	}
-	vector<int> homeCandidates = getV2ProvinceNums(inverseProvinceMap, eu3Home);
+	std::vector<int> homeCandidates = getV2ProvinceNums(inverseProvinceMap, eu3Home);
 	if (homeCandidates.size() == 0)
 	{
 		LOG(LogLevel::Warning) << RegimentCategoryNames[rc] << " unit in army/navy " << army->getName() << " has unmapped home province " << eu3Home << " - dissolving to pool";
@@ -1892,8 +1892,8 @@ int V2Country::addRegimentToArmy(V2Army* army, RegimentCategory rc, const invers
 	else
 	{
 		// Armies should get a home in the candidate most capable of supporting them
-		vector<V2Province*> sortedHomeCandidates;
-		for (vector<int>::iterator nitr = homeCandidates.begin(); nitr != homeCandidates.end(); ++nitr)
+		std::vector<V2Province*> sortedHomeCandidates;
+		for (std::vector<int>::iterator nitr = homeCandidates.begin(); nitr != homeCandidates.end(); ++nitr)
 		{
 			std::map<int, V2Province*>::const_iterator pitr = allProvinces.find(*nitr);
 			if (pitr != allProvinces.end())
@@ -1931,10 +1931,10 @@ int V2Country::addRegimentToArmy(V2Army* army, RegimentCategory rc, const invers
 						LOG(LogLevel::Warning) << "No adjacency mapping for province " << currentProvince;
 						continue;
 					}
-					vector<int> adjacencies = adjacencyMap[currentProvince];
+					std::vector<int> adjacencies = adjacencyMap[currentProvince];
 					for (unsigned int i = 0; i < adjacencies.size(); i++)
 					{
-						map<int, V2Province*>::iterator openItr = openProvinces.find(adjacencies[i]);
+						std::map<int, V2Province*>::iterator openItr = openProvinces.find(adjacencies[i]);
 						if (openItr == openProvinces.end())
 						{
 							continue;
@@ -1996,7 +1996,7 @@ int V2Country::addRegimentToArmy(V2Army* army, RegimentCategory rc, const invers
 }
 
 
-vector<int> V2Country::getPortProvinces(std::vector<int> locationCandidates, const std::map<int, V2Province*>& allProvinces)
+std::vector<int> V2Country::getPortProvinces(std::vector<int> locationCandidates, const std::map<int, V2Province*>& allProvinces)
 {
 	// hack for naval bases.  not ALL naval bases are in port provinces, and if you spawn a navy at a naval base in
 	// a non-port province, Vicky crashes....
@@ -2088,7 +2088,7 @@ V2Province* V2Country::getProvinceForExpeditionaryArmy()
 }
 
 
-string V2Country::getRegimentName(RegimentCategory rc)
+std::string V2Country::getRegimentName(RegimentCategory rc)
 {
 	// galleys turn into light ships; count and name them identically
 	if (rc == galley)

@@ -31,6 +31,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*/
 
 Configuration* Configuration::instance = nullptr;
 
+
 Configuration::Configuration()
 {
 	LOG(LogLevel::Info) << "Reading configuration file.";
@@ -53,15 +54,15 @@ Configuration::Configuration()
 		exit (-1);
 	}
 
-	MaxLiteracy			= obj[0]->GetItem("max_literacy")[0].Get(0).ToFloat();
-	resetProvinces		= obj[0]->GetItem("resetProvinces")[0].Get(0).ToString();
-	V2Path				= obj[0]->GetItem("v2directory")[0].Get(0).ToString();
-	V2DocumentsPath		= obj[0]->GetItem("V2Documentsdirectory")[0].Get(0).ToString();
-	EU3Path				= obj[0]->GetItem("EU3directory")[0].Get(0).ToString();
-	EU3gametype			= obj[0]->GetItem("EU3gametype")[0].Get(0).ToString();
-	V2Gametype			= obj[0]->GetItem("V2gametype")[0].Get(0).ToString();
-	EU3Mod				= obj[0]->GetItem("EU3Mod")[0].Get(0).ToString();
-	Removetype			= obj[0]->GetItem("removetype")[0].Get(0).ToString();
-	convertPopTotals	= (obj[0]->GetItem("convertPopTotals")[0].Get(0).ToString() == "yes");
+	MaxLiteracy = obj[0]->GetItem("max_literacy", true)[0].Get(0).ToFloat();
+	resetProvinces		= (obj[0]->GetItem("resetProvinces", true)[0].Get(0).ToString());
+	V2Path				= (obj[0]->GetItem("v2directory", true)[0].Get(0).ToString());
+	V2DocumentsPath		= (obj[0]->GetItem("V2Documentsdirectory", true)[0].Get(0).ToString());
+	EU3Path				= (obj[0]->GetItem("EU3directory", true)[0].Get(0).ToString());
+	EU3gametype			= (obj[0]->GetItem("EU3gametype", true)[0].Get(0).ToString());
+	V2Gametype			= (obj[0]->GetItem("V2gametype", true)[0].Get(0).ToString());
+	EU3Mod				= (obj[0]->GetItem("EU3Mod", true)[0].Get(0).ToString());
+	Removetype			= (obj[0]->GetItem("removetype", true)[0].Get(0).ToString());
+	convertPopTotals	= ((obj[0]->GetItem("convertPopTotals", true)[0].Get(0).ToString()) == "yes");
 	outputName			= "";
 }

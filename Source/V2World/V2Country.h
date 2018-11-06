@@ -57,7 +57,8 @@ struct V2Party;
 class V2Country
 {
 	public:
-		V2Country(const std:: string& _tag, const string& _commonCountryFile, const vector<V2Party*>& _parties, V2World* _theWorld, bool _newCountry = false, bool _dynamicCountry = false);
+		V2Country(const std::string& _tag, const std::string& _commonCountryFile, const std::vector<V2Party*>& _parties, 
+			V2World* _theWorld, bool _newCountry = false, bool _dynamicCountry = false);
 		void								output() const;
 		void								outputToCommonCountriesFile(FILE*) const;
 		void								outputLocalisation(FILE*) const;

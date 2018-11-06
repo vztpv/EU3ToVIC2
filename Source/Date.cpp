@@ -26,7 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*/
 //#include "Parsers\Object.h"
 
 
-date::date(const std::string& _init)
+date::date(const std::string& _init, bool check)
 {
 	if (_init.length() < 1)
 	{
@@ -47,6 +47,13 @@ date::date(const std::string& _init)
 	year				= atoi( subStr.substr(0, first_dot).c_str() );
 	month				= atoi( subStr.substr(first_dot + 1, last_dot - first_dot).c_str() );
 	day				= atoi( subStr.substr(last_dot + 1, 2).c_str() );
+
+	// added!
+	if (check && year >= 1836) {
+		year = 1836;
+		month = 1;
+		day = 1;
+	}
 }
 
 

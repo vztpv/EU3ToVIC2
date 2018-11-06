@@ -57,6 +57,7 @@ void V2Flags::SetV2Tags(const std::map<std::string, V2Country*>& V2Countries)
 		for (std::vector<std::string>::const_reverse_iterator i = flagFileSuffixes.rbegin(); i != flagFileSuffixes.rend() && !hasSuffix; ++i)
 		{
 			const std::string& suffix = *i;
+
 			hasSuffix = (flag.size() == 3 + suffix.size()) && wiz::String::endsWith(wiz::String::upper(flag), wiz::String::upper(suffix)); // boost::algorithm::iends_with(flag, suffix);
 			if (hasSuffix)
 			{

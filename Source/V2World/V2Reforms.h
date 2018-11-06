@@ -19,45 +19,47 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*/
 
-// 2018.10.24 SOUTH KOREA (vztpv@naver.com)
 
-#ifndef DATE_H_
-#define DATE_H_
-
+#ifndef V2REFORMS_H_
+#define V2REFORMS_H_
 
 
-#include <iostream>
+
+#include <stdio.h>
 #include <string>
 
 
+class EU3Country;
+class V2Country;
 
-#include "wiz/load_data_types.h"
 
 
+class V2Reforms {
+	public:
+		V2Reforms(const V2Country*, const EU3Country*);
+		void output(FILE*) const;
+	private:
+		void governmentEffects(const V2Country* dstCountry);
+		void upperHouseEffects(const V2Country* dstCountry);
 
-struct date
-{
-	date() : year(1), month(1), day(1) {};
-	date(const std::string& _init, bool check = true);
-	date(const date& _init);
-	date(const wiz::load_data::UserType* _init);
-
-	date& operator=(const date& _rhs);
-	bool operator==(const date& _rhs) const noexcept;
-	bool operator!=(const date& _rhs) const noexcept;
-	bool operator<(const date& _rhs) const noexcept;
-	bool operator>(const date& _rhs) const noexcept;
-	bool operator<=(const date& _rhs) const noexcept;
-	bool operator>=(const date& _rhs) const noexcept;
-
-	friend std::ostream& operator<<(std::ostream&, const date&);
-
-	bool isSet() const noexcept;
-	std::string toString() const;
-
-	int year;
-	int month;
-	int day;
+		double slavery;
+		double vote_franchise;
+		double upper_house_composition;
+		double voting_system;
+		double public_meetings;
+		double press_rights;
+		double trade_unions;
+		double political_parties;
 };
 
-#endif // _DATE_H
+
+class V2UncivReforms {
+	public:
+		V2UncivReforms(int westernizationProgress, double milFocus, double socioEcoFocus, V2Country* country);
+		void output(FILE*) const;
+	private:
+		bool reforms[16];
+};
+
+
+#endif V2REFORMS_H_

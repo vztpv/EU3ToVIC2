@@ -19,45 +19,35 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*/
 
-// 2018.10.24 SOUTH KOREA (vztpv@naver.com)
+// 2018.11.06 SOUTH KOREA (vztpv@naver.com)
 
-#ifndef DATE_H_
-#define DATE_H_
+#ifndef V2_TECH_SCHOOLS
+#define V2_TECH_SCHOOLS
 
 
 
-#include <iostream>
 #include <string>
-
+#include <vector>
 
 
 #include "wiz/load_data_types.h"
 
 
 
-struct date
+typedef struct V2TechSchool
 {
-	date() : year(1), month(1), day(1) {};
-	date(const std::string& _init, bool check = true);
-	date(const date& _init);
-	date(const wiz::load_data::UserType* _init);
+	std::string name;
+	double armyInvestment;
+	double commerceInvestment;
+	double cultureInvestment;
+	double industryInvestment;
+	double navyInvestment;
+} techSchool;
 
-	date& operator=(const date& _rhs);
-	bool operator==(const date& _rhs) const noexcept;
-	bool operator!=(const date& _rhs) const noexcept;
-	bool operator<(const date& _rhs) const noexcept;
-	bool operator>(const date& _rhs) const noexcept;
-	bool operator<=(const date& _rhs) const noexcept;
-	bool operator>=(const date& _rhs) const noexcept;
 
-	friend std::ostream& operator<<(std::ostream&, const date&);
+std::vector<V2TechSchool>	initTechSchools(const wiz::load_data::UserType *obj, const std::vector<std::string>& blockedTechSchools);
+std::vector<std::string>			initBlockedTechSchools(const wiz::load_data::UserType*);
 
-	bool isSet() const noexcept;
-	std::string toString() const;
 
-	int year;
-	int month;
-	int day;
-};
 
-#endif // _DATE_H
+#endif // V2_TECH_SCHOOLS

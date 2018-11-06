@@ -48,6 +48,7 @@ void initProvinceMap(const wiz::load_data::UserType* obj, WorldType worldType, p
 	unsigned int mappingIdx = -1;
 	for (int i = 0; i < obj->GetUserTypeListSize(); ++i)
 	{
+		std::cout << obj->GetUserTypeList(i)->GetName().ToString() << "\n";
 		switch (worldType)
 		{
 			case InNomine:
@@ -83,6 +84,8 @@ void initProvinceMap(const wiz::load_data::UserType* obj, WorldType worldType, p
 			}
 		}
 	}
+
+	LOG(LogLevel::Debug) << "mapping idx " << mappingIdx;
 
 	LOG(LogLevel::Debug) << "Using world type " << obj->GetUserTypeList(mappingIdx)->GetName().ToString() << " mappings";
 	std::vector<wiz::load_data::UserType*> data = obj->GetUserTypeList(mappingIdx)->GetUserTypeItem("link");
