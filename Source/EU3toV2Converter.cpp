@@ -323,7 +323,7 @@ int ConvertEU3ToV2(const std::string& EU3SaveFileName)
 	
 	// Generate region mapping
 	LOG(LogLevel::Info) << "Parsing region structure";
-	if (_stat(".\\blankMod\\output\\map\\region.txt", &st) == 0)
+	/*if (_stat(".\\blankMod\\output\\map\\region.txt", &st) == 0)
 	{
 		if (!wiz::load_data::LoadData::LoadDataFromFile3(".\\blankMod\\output\\map\\region.txt", obj, -1, 0))
 		{
@@ -331,7 +331,7 @@ int ConvertEU3ToV2(const std::string& EU3SaveFileName)
 			exit(-1);
 		}
 	}
-	else
+	else*/
 	{
 		if (!wiz::load_data::LoadData::LoadDataFromFile3((V2Loc + "\\map\\region.txt"), obj, -1, 0))
 		{
@@ -627,11 +627,11 @@ int main(int argc, char * argv[])
 		}
 		return ConvertEU3ToV2(EU3SaveFileName);
 	}
-	//catch (const std::exception& e)
-	//{
-	//	LOG(LogLevel::Error) << e.what();
-	//	return -1;
-	//}
+	catch (const std::exception& e)
+	{
+		LOG(LogLevel::Error) << e.what();
+		return -1;
+	}
 	catch (const std::string& e) {
 		LOG(LogLevel::Error) << e;
 		return -1;

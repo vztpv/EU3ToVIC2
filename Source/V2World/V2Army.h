@@ -64,6 +64,12 @@ class V2Regiment // also Ship
 
 class V2Army // also Navy
 {
+	private:
+		bool valid = true;
+	public:
+		void noUse() {
+			valid = false;
+		}
 	public:
 		V2Army(EU3Army* oldArmy, const std::map<int, int>& leaderIDMap);
 		void					output(FILE* out) const;

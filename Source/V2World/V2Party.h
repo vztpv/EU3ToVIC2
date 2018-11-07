@@ -47,5 +47,5 @@ struct V2Party
 		std::string citizenship_policy;
 		std::string war_policy;
 
-		bool isActiveOn(date query) { return ((query > start_date) && (query < end_date)); };
+		bool isActiveOn(date query) { return ((query >= start_date) && (query <= end_date)); };
 };

@@ -74,7 +74,7 @@ date& date::operator=(const date& _rhs)
 }
 
 
-date::date(const wiz::load_data::UserType *_init)
+date::date(const wiz::load_data::UserType *_init, bool check)
 {
 	std::vector<wiz::load_data::ItemType<wiz::DataType>> dateSubObj = _init->GetItem("year");
 	if (dateSubObj.size() > 0)
@@ -89,6 +89,13 @@ date::date(const wiz::load_data::UserType *_init)
 		// date specified by year.month.day
 		// build another date object via date(std::string&) and copy it to this one
 		(*this) = date(_init->ToString());  // date(_init->getLeaf());
+	}
+
+	// added!
+	if (check && year >= 1836) {
+		year = 1836;
+		month = 1;
+		day = 1;
 	}
 }
 

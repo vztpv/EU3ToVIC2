@@ -506,12 +506,13 @@ void V2World::output() const
 	// Output common\countries.txt
 	LOG(LogLevel::Debug) << "Writing countries file";
 	FILE* allCountriesFile;
-	if (fopen_s(&allCountriesFile, ("Output\\" + Configuration::getOutputName() + "\\common\\countries.txt").c_str(), "w") != 0)
+	if (fopen_s(&allCountriesFile, ("Output\\" + Configuration::getOutputName() 
+		+ "\\common\\countries.txt").c_str(), "w") != 0)
 	{
 		LOG(LogLevel::Error) << "Could not create countries file";
 		exit(-1);
 	}
-	for (std::map<std::string, V2Country*>::const_iterator i = countries.begin(); i != countries.end(); i++)
+	for (std::map<std::string, V2Country*>::const_iterator i = countries.begin(); i != countries.end(); ++i)
 	{
 		const V2Country& country = *i->second;
 		std::map<std::string, V2Country*>::const_iterator j = dynamicCountries.find(country.getTag());
@@ -1547,7 +1548,7 @@ void V2World::convertTechs(const EU3World& sourceWorld)
 		num++;
 	}
 
-	for (std::map<std::string, V2Country*>::iterator itr = countries.begin(); itr != countries.end(); itr++)
+	for (std::map<std::string, V2Country*>::iterator itr = countries.begin(); itr != countries.end(); ++itr)
 	{
 		if ((Configuration::getV2Gametype() == "vanilla") || itr->second->isCivilized())
 		{

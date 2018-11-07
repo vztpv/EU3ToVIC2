@@ -48,7 +48,6 @@ void initProvinceMap(const wiz::load_data::UserType* obj, WorldType worldType, p
 	unsigned int mappingIdx = -1;
 	for (int i = 0; i < obj->GetUserTypeListSize(); ++i)
 	{
-		std::cout << obj->GetUserTypeList(i)->GetName().ToString() << "\n";
 		switch (worldType)
 		{
 			case InNomine:

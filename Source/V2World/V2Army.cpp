@@ -127,7 +127,13 @@ void V2Army::output(FILE* out) const
 	}
 	if (isNavy)
 	{
-		fprintf(out, "navy = {\n");
+		if (valid) {
+			fprintf(out, "navy = {\n");
+		}
+		else {
+			LOG(LogLevel::Info) << "Navy " << name << "skipping";
+			return;
+		}
 	}
 	else
 	{

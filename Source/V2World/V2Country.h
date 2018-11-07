@@ -174,6 +174,7 @@ class V2Country
 		Color								color;
 		int								unitNameCount[num_reg_categories];
 		int								numFactories;
+		bool valid; // is exist country?
 };
 
 bool ProvinceRegimentCapacityPredicate(V2Province* prov1, V2Province* prov2);

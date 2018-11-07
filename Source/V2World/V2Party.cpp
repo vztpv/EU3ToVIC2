@@ -35,7 +35,7 @@ V2Party::V2Party(const wiz::load_data::UserType* party_obj)
 	ideology = party_obj->GetItem("ideology")[0].Get(0).ToString();
 
 	start_date = date(party_obj->GetItem("start_date")[0].Get(0).ToString());
-	end_date = date(party_obj->GetItem("end_date")[0].Get(0).ToString());
+	end_date = date(party_obj->GetItem("end_date")[0].Get(0).ToString(), false);
 
 	economic_policy = party_obj->GetItem("economic_policy")[0].Get(0).ToString();
 	trade_policy = party_obj->GetItem("trade_policy")[0].Get(0).ToString();

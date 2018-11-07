@@ -191,7 +191,7 @@ void V2Country::output() const
 			fprintf(output, "civilized=yes\n");
 		}
 		fprintf(output, "\n");
-		fprintf(output, "ruling_party=%s\n", rulingParty.c_str());
+		fprintf(output, "ruling_party=%s\n", rulingParty.empty()? "NONE" : rulingParty.c_str());
 		fprintf(output, "upper_house=\n");
 		fprintf(output, "{\n");
 		fprintf(output, "	fascist = 0\n");
@@ -238,6 +238,7 @@ void V2Country::output() const
 
 		/*fprintf(output, "	schools=\"%s\"\n", techSchool.c_str());*/
 
+		// debug..
 		fprintf(output, "oob = \"%s\"\n", (tag + "_OOB.txt").c_str());
 
 		fclose(output);
@@ -327,6 +328,7 @@ void V2Country::outputOOB() const
 		LOG(LogLevel::Error) << "Could not create OOB file " << (tag + "_OOB.txt");
 		exit(-1);
 	}
+	
 
 	fprintf(output, "#Sphere of Influence\n");
 	fprintf(output, "\n");
@@ -334,7 +336,7 @@ void V2Country::outputOOB() const
 	{
 		relationsItr->second->output(output);
 	}
-
+	
 	fprintf(output, "\n");
 	fprintf(output, "#Leaders\n");
 	for (std::vector<V2Leader*>::const_iterator itr = leaders.begin(); itr != leaders.end(); ++itr)
@@ -617,6 +619,7 @@ void V2Country::initFromEU3Country(const EU3Country* _srcCountry, const std::vec
 	{
 		idealogy = "conservative";
 	}
+
 	for (std::vector<V2Party*>::iterator i = parties.begin(); i != parties.end(); i++)
 	{
 		if ((*i)->isActiveOn(date("1836.1.1")) && ((*i)->ideology == idealogy))
@@ -636,7 +639,8 @@ void V2Country::initFromEU3Country(const EU3Country* _srcCountry, const std::vec
 			}
 		}
 	}
-	LOG(LogLevel::Debug) << tag << " ruling party is " << rulingParty;
+
+	LOG(LogLevel::Warning) << tag << " ruling party is " << rulingParty << "//";
 
 	// Reforms
 	reforms		=  new V2Reforms(this, srcCountry);
@@ -963,7 +967,9 @@ void V2Country::addState(V2State* newState)
 
 
 //#define TEST_V2_PROVINCES
-void V2Country::convertArmies(const std::map<int,int>& leaderIDMap, double cost_per_regiment[num_reg_categories], const inverseProvinceMapping& inverseProvinceMap, const std::map<int, V2Province*>& allProvinces, 
+void V2Country::convertArmies(const std::map<int,int>& leaderIDMap, double cost_per_regiment[num_reg_categories], 
+	const inverseProvinceMapping& inverseProvinceMap,
+	const std::map<int, V2Province*>& allProvinces, 
 	const std::vector<int>& port_whitelist, const adjacencyMapping& adjacencyMap)
 {
 #ifndef TEST_V2_PROVINCES
@@ -1048,6 +1054,9 @@ void V2Country::convertArmies(const std::map<int,int>& leaderIDMap, double cost_
 				locationCandidates = getPortProvinces(locationCandidates, allProvinces);
 				if (locationCandidates.size() == 0)
 				{
+					// added
+					army->noUse();
+
 					LOG(LogLevel::Warning) << "Navy " << (*aitr)->getName() << " assigned to EU3 province " 
 						<< (*aitr)->getLocation() << " which has no corresponding V2 port provinces; dissolving to pool";
 					int regimentCounts[num_reg_categories] = { 0 };
@@ -1068,6 +1077,8 @@ void V2Country::convertArmies(const std::map<int,int>& leaderIDMap, double cost_
 			{
 				LOG(LogLevel::Warning) << "Assigning navy to non-whitelisted port province " << selectedLocation
 					<< " - if the save crashes, try blacklisting this province";
+
+				army->noUse();
 			}
 		}
 		army->setLocation(selectedLocation);

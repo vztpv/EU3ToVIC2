@@ -40,7 +40,7 @@ struct date
 	date() : year(1), month(1), day(1) {};
 	date(const std::string& _init, bool check = true);
 	date(const date& _init);
-	date(const wiz::load_data::UserType* _init);
+	date(const wiz::load_data::UserType* _init, bool check = true);
 
 	date& operator=(const date& _rhs);
 	bool operator==(const date& _rhs) const noexcept;
